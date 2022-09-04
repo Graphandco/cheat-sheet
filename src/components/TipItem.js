@@ -43,7 +43,7 @@ const TipItem = ({ tip, showControl, showAvatar }) => {
             <SyntaxHighlighter language="javascript" style={vscDarkPlus}>
                 {tip.content}
             </SyntaxHighlighter>
-            {user.uid === tip.userID && showControl && (
+            {user?.uid && user.uid === tip.userID && showControl && (
                 <button className="btn btn-error btn-xs btn-circle" onClick={() => deleteTodo(tip.id)}>
                     <FaTrash />
                 </button>

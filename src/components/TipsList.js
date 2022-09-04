@@ -20,8 +20,8 @@ const TipsList = () => {
                     className="input input-primary w-full max-w-xs my-5"
                 />
             </div>
-            {tips.length} tip{tips.length > 1 && 's'} disponible{tips.length > 1 && 's'}
-            <div className="tips-list px-5">
+            {/* {tips.length} tip{tips.length > 1 && 's'} disponible{tips.length > 1 && 's'} */}
+            <div className="tips-list px-5 mt-10">
                 {tips
                     .filter((tip) => {
                         return searchText.toLowerCase() === '' ? tip : tip.name.toLowerCase().includes(searchText);
