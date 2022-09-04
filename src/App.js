@@ -1,25 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import Signup from './components/Signup';
+import Account from './components/Account';
+import { Route, Routes } from 'react-router-dom';
+import { AuthContextProvider } from './context/AuthContext';
+import ProtectedRoute from './components/ProtectedRoute';
+import Header from './components/Header';
+import Login from './components/Login';
+import TipsList from './components/TipsList';
+import CreateTip from './components/CreateTip';
+import { TipsContextProvider } from './context/TipsContext';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <div>
+            <AuthContextProvider>
+                <TipsContextProvider>
+                    <Header />
+                    <Routes>
+                        <Route path="/" element={<TipsList />} />
+                        <Route path="/login" element={<Login />} />
+                        <Route path="/signup" element={<Signup />} />
+                        <Route path="/add-tip" element={<CreateTip />} />
+                        <Route
+                            path="/account"
+                            element={
+                                <ProtectedRoute>
+                                    <Account />
+                                </ProtectedRoute>
+                            }
+                        />
+                    </Routes>
+                </TipsContextProvider>
+            </AuthContextProvider>
+        </div>
+    );
 }
-
 export default App;
