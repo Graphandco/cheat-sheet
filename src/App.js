@@ -9,6 +9,8 @@ import Login from './components/Login';
 import TipsList from './components/TipsList';
 import CreateTip from './components/CreateTip';
 import { TipsContextProvider } from './context/TipsContext';
+import TipEdit from './components/TipEdit';
+import MyTips from './components/MyTips';
 
 function App() {
     return (
@@ -21,6 +23,8 @@ function App() {
                         <Route path="/login" element={<Login />} />
                         <Route path="/signup" element={<Signup />} />
                         <Route path="/add-tip" element={<CreateTip />} />
+                        <Route path="/edit-tip/:id" element={<TipEdit />} />
+                        <Route path="/my-tips" element={<MyTips />} />
                         <Route
                             path="/account"
                             element={

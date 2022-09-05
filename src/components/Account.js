@@ -1,16 +1,12 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserAuth } from '../context/AuthContext';
-import { CheatTips } from '../context/TipsContext';
-import TipItem from './TipItem';
 
 const Account = () => {
     const { user, logout } = UserAuth();
-    const { tips } = CheatTips();
     const navigate = useNavigate();
 
-    // console.log(user.uid);
-    console.log(tips);
+    console.log(user);
 
     const handleLogout = async () => {
         try {
@@ -29,18 +25,6 @@ const Account = () => {
             <button onClick={handleLogout} className="btn btn-sm btn-primary mt-5">
                 Se déconnecter
             </button>
-
-            <h2 className="text-2xl font-bold py-4 mt-10">Mes tips</h2>
-
-            <div className="tips-list">
-                {tips
-                    .filter((tip) => {
-                        return tip.userID !== user.uid ? '' : tip.userID.includes(user.uid);
-                    })
-                    .map((tip) => (
-                        <TipItem key={tip.id} tip={tip} showControl />
-                    ))}
-            </div>
         </div>
     );
 };

@@ -16,7 +16,7 @@ const Header = () => {
                     {/* <Search /> */}
                     <Profile />
                     <Link to="add-tip">
-                        <button className="btn btn-square btn-primary">
+                        <button className="btn btn-circle btn-sm btn-primary">
                             <FaPlus />
                         </button>
                     </Link>

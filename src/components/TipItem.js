@@ -3,9 +3,10 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { db } from '../firebase';
 import { doc, deleteDoc } from 'firebase/firestore';
-import { FaTrash } from 'react-icons/fa';
+import { FaTrash, FaPencilAlt } from 'react-icons/fa';
 import Gravatar from 'react-gravatar';
 import { UserAuth } from '../context/AuthContext';
+import { Link } from 'react-router-dom';
 
 const TipItem = ({ tip, showControl, showAvatar }) => {
     const { user } = UserAuth();
@@ -33,9 +34,13 @@ const TipItem = ({ tip, showControl, showAvatar }) => {
                     <span className="badge badge-xs badge-primary">{tip.language}</span>
                 </div>
                 {showAvatar && (
-                    <div className="avatar max-h-10">
+                    <div className="avatar max-h-10 max-w-sm">
                         <div className="rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-                            <Gravatar email={tip.userID ? tip.userEmail : 'blahblah@blah.com'} size={40} default="mp" />
+                            {tip.userEmail ? (
+                                <Gravatar email={tip.userEmail} size={40} default="mp" />
+                            ) : (
+                                <img className="react-gravatar" src="https://fr.seaicons.com/wp-content/uploads/2015/10/dev-icon1.png" />
+                            )}
                         </div>
                     </div>
                 )}
@@ -44,9 +49,16 @@ const TipItem = ({ tip, showControl, showAvatar }) => {
                 {tip.content}
             </SyntaxHighlighter>
             {user?.uid && user.uid === tip.userID && showControl && (
-                <button className="btn btn-error btn-xs btn-circle" onClick={() => deleteTodo(tip.id)}>
-                    <FaTrash />
-                </button>
+                <div className="tip-controls mt-5">
+                    <button className="btn btn-error btn-sm btn-circle mr-3" onClick={() => deleteTodo(tip.id)}>
+                        <FaTrash />
+                    </button>
+                    <Link to={`/edit-tip/${tip.id}`}>
+                        <button className="btn btn-info btn-sm btn-circle">
+                            <FaPencilAlt />
+                        </button>
+                    </Link>
+                </div>
             )}
         </div>
     );
