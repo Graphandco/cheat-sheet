@@ -3,22 +3,25 @@ import { useParams } from 'react-router-dom';
 import { CheatTips } from '../context/TipsContext';
 import { db } from '../firebase';
 import { updateDoc, doc } from 'firebase/firestore';
+import { useNavigate, Link } from 'react-router-dom';
 
 const TipEdit = () => {
     const { id } = useParams();
     const { tips } = CheatTips();
 
-    // const [tipName, setTipName] = useState('');
-    // const [tipContent, setTipContent] = useState('');
-
     const nameRef = useRef(null);
     const contentRef = useRef(null);
+    const catRef = useRef(null);
+
+    const navigate = useNavigate();
 
     const updatetip = async (id) => {
         await updateDoc(doc(db, 'tips', id), {
             name: nameRef.current.value,
             content: contentRef.current.value,
+            language: catRef.current.value,
         });
+        navigate('/my-tips');
     };
 
     console.log(nameRef.current);
@@ -66,8 +69,28 @@ const TipEdit = () => {
                                         </a>
                                     </label> */}
                                     </div>
+
+                                    <div className="form-control">
+                                        <label className="label">
+                                            <span className="label-text">Catégorie du tip</span>
+                                        </label>
+                                        <select ref={catRef} defaultValue={tip.language} className="select select-bordered w-full max-w-xs">
+                                            <option disabled selected>
+                                                Sélectionnez...
+                                            </option>
+                                            <option value="php">PHP</option>
+                                            <option value="css">CSS</option>
+                                            <option value="javascript">Javascript</option>
+                                            <option value="react">React</option>
+                                            <option value="prestashop">Prestashop</option>
+                                        </select>
+                                    </div>
+
                                     <div onClick={() => updatetip(id)} className="form-control mt-6">
                                         <button className="btn btn-primary">Mettre à jour</button>
+                                        <Link to={`/my-tips`}>
+                                            <button className="btn btn-primary btn-outline">Annuler</button>
+                                        </Link>
                                     </div>
                                 </div>
                             </div>

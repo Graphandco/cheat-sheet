@@ -48,6 +48,17 @@ const TipItem = ({ tip, showControl, showAvatar }) => {
             <SyntaxHighlighter language="javascript" style={vscDarkPlus}>
                 {tip.content}
             </SyntaxHighlighter>
+
+            {tip.tags && (
+                <div className="tags-list">
+                    {tip.tags.map((tag) => (
+                        <div key={tag} className="badge badge-primary mr-2">
+                            {tag}
+                        </div>
+                    ))}
+                </div>
+            )}
+
             {user?.uid && user.uid === tip.userID && showControl && (
                 <div className="tip-controls mt-5">
                     <button className="btn btn-error btn-sm btn-circle mr-3" onClick={() => deleteTodo(tip.id)}>
