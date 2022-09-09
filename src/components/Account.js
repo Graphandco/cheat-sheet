@@ -21,6 +21,7 @@ const Account = () => {
     return (
         <div className="max-w-[1200px] mx-auto my-16 p-4">
             <h1 className="text-2xl font-bold py-4">Mon Compte</h1>
+            {user?.photoURL ? <img src={user.photoURL} alt="" /> : <img src="https://fr.seaicons.com/wp-content/uploads/2015/10/dev-icon1.png" />}
             <p className="italic">Connecté sous: {user && user.email}</p>
             <button onClick={handleLogout} className="btn btn-sm btn-primary mt-5">
                 Se déconnecter

@@ -1,9 +1,17 @@
 import { UserAuth } from '../context/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
-import Gravatar from 'react-gravatar';
 const Profile = () => {
-    const { user, logout } = UserAuth();
+    const { user, logout, signInGoogle } = UserAuth();
     const navigate = useNavigate();
+
+    const handleGoogleSignIn = async (e) => {
+        e.preventDefault();
+        try {
+            await signInGoogle();
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     const handleLogout = async () => {
         try {
@@ -19,11 +27,7 @@ const Profile = () => {
         <div className="dropdown dropdown-end">
             <label tabIndex="0" className="btn btn-ghost btn-circle avatar">
                 <div className="w-10 rounded-full">
-                    {user ? (
-                        <Gravatar email={user.email} size={30} default="mp" />
-                    ) : (
-                        <img src="https://fr.seaicons.com/wp-content/uploads/2015/10/dev-icon1.png" />
-                    )}
+                    {user?.photoURL ? <img src={user.photoURL} alt="" /> : <img src="https://fr.seaicons.com/wp-content/uploads/2015/10/dev-icon1.png" />}
                 </div>
             </label>
             <ul tabIndex="0" className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">
@@ -45,7 +49,7 @@ const Profile = () => {
                 )}
                 {!user && (
                     <li>
-                        <Link to="login">Se connecter</Link>
+                        <span onClick={handleGoogleSignIn}>Se connecter</span>
                     </li>
                 )}
                 {/* <li>

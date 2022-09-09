@@ -9,6 +9,7 @@ const TipsList = () => {
     const [searchText, setSearchText] = useState('');
 
     const { tips } = CheatTips();
+    console.log(tips);
 
     return (
         <div className="tips">

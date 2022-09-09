@@ -22,7 +22,14 @@ function App() {
                         <Route path="/" element={<TipsList />} />
                         <Route path="/login" element={<Login />} />
                         <Route path="/signup" element={<Signup />} />
-                        <Route path="/add-tip" element={<CreateTip />} />
+                        <Route
+                            path="/add-tip"
+                            element={
+                                <ProtectedRoute>
+                                    <CreateTip />
+                                </ProtectedRoute>
+                            }
+                        />
                         <Route path="/edit-tip/:id" element={<TipEdit />} />
                         <Route path="/my-tips" element={<MyTips />} />
                         <Route

@@ -4,7 +4,7 @@ import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { db } from '../firebase';
 import { doc, deleteDoc } from 'firebase/firestore';
 import { FaTrash, FaPencilAlt } from 'react-icons/fa';
-import Gravatar from 'react-gravatar';
+// import Gravatar from 'react-gravatar';
 import { UserAuth } from '../context/AuthContext';
 import { Link } from 'react-router-dom';
 
@@ -36,8 +36,9 @@ const TipItem = ({ tip, showControl, showAvatar }) => {
                 {showAvatar && (
                     <div className="avatar max-h-10 max-w-sm">
                         <div className="rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-                            {tip.userEmail ? (
-                                <Gravatar email={tip.userEmail} size={40} default="mp" />
+                            {tip.photoURL ? (
+                                // <Gravatar email={tip.userEmail} size={40} default="mp" />
+                                <img className="react-gravatar" src={tip.photoURL} />
                             ) : (
                                 <img className="react-gravatar" src="https://fr.seaicons.com/wp-content/uploads/2015/10/dev-icon1.png" />
                             )}

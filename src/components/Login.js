@@ -1,21 +1,32 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import { UserAuth } from '../context/AuthContext';
 
 const Login = () => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    // const [email, setEmail] = useState('');
+    // const [password, setPassword] = useState('');
     const [error, setError] = useState('');
-    const navigate = useNavigate();
-    const { signIn } = UserAuth();
+    // const navigate = useNavigate();
+    // const { signIn, signInGoogle } = UserAuth();
+    const { signInGoogle } = UserAuth();
 
-    const handleSubmit = async (e) => {
+    // const handleSubmit = async (e) => {
+    //     e.preventDefault();
+    //     setError('');
+    //     try {
+    //         await signIn(email, password);
+    //         navigate('/');
+    //     } catch (e) {
+    //         setError(e.message);
+    //         console.log(error);
+    //     }
+    // };
+
+    const handleGoogleSignIn = async (e) => {
         e.preventDefault();
-        setError('');
         try {
-            await signIn(email, password);
-            navigate('/');
-        } catch (e) {
+            await signInGoogle();
+        } catch (error) {
             setError(e.message);
             console.log(error);
         }
@@ -38,13 +49,15 @@ const Login = () => {
                                 <label className="label">
                                     <span className="label-text">Email</span>
                                 </label>
-                                <input onChange={(e) => setEmail(e.target.value)} type="text" className="input input-bordered" />
+                                {/* <input onChange={(e) => setEmail(e.target.value)} type="text" className="input input-bordered" /> */}
+                                <input type="text" className="input input-bordered" />
                             </div>
                             <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Mot de passe</span>
                                 </label>
-                                <input onChange={(e) => setPassword(e.target.value)} type="text" className="input input-bordered" />
+                                {/* <input onChange={(e) => setPassword(e.target.value)} type="text" className="input input-bordered" /> */}
+                                <input type="text" className="input input-bordered" />
                                 {/* <label className="label">
                                     <a href="#" className="label-text-alt link link-hover">
                                         Forgot password?
@@ -52,7 +65,7 @@ const Login = () => {
                                 </label> */}
                             </div>
                             <div className="form-control mt-6">
-                                <button onClick={handleSubmit} className="btn btn-primary">
+                                <button onClick={handleGoogleSignIn} className="btn btn-primary">
                                     Se connecter
                                 </button>
                             </div>
