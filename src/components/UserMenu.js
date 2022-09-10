@@ -1,7 +1,9 @@
 import { UserAuth } from '../context/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
-const Profile = () => {
-    const { user, logout, signInGoogle } = UserAuth();
+const UserMenu = () => {
+    const { user, logout, signInGoogle, isUserAdmin } = UserAuth();
+    const isAdmin = isUserAdmin();
+
     const navigate = useNavigate();
 
     const handleGoogleSignIn = async (e) => {
@@ -43,6 +45,14 @@ const Profile = () => {
                             <Link to="my-tips">Voir mes tips</Link>
                         </li>
                         <li>
+                            <Link to="contributions">Contributions</Link>
+                        </li>
+                        {isAdmin && (
+                            <li>
+                                <Link to="a-valider">Tips à valider</Link>
+                            </li>
+                        )}
+                        <li>
                             <span onClick={handleLogout}>Se déconnecter</span>
                         </li>
                     </>
@@ -63,4 +73,4 @@ const Profile = () => {
     );
 };
 
-export default Profile;
+export default UserMenu;

@@ -9,7 +9,9 @@ import { UserAuth } from '../context/AuthContext';
 import { Link } from 'react-router-dom';
 
 const TipItem = ({ tip, showControl, showAvatar }) => {
-    const { user } = UserAuth();
+    const { user, isUserAdmin } = UserAuth();
+
+    const isAdmin = isUserAdmin();
 
     const deleteTodo = async (id) => {
         if (window.confirm(`Voulez-vous vraiment supprimer le tip ${tip.name} ?`)) {
@@ -30,7 +32,7 @@ const TipItem = ({ tip, showControl, showAvatar }) => {
         <div className="bg-white/5 rounded-md mb-10 px-10 py-5">
             <div className="flex align-center justify-between">
                 <div className="tip-infos">
-                    <h2 className="text-2xl  font-bold">{tip.name}</h2>
+                    <h2 className="text-2xl font-bold">{tip.name}</h2>
                     <span className="badge badge-xs badge-primary">{tip.language}</span>
                 </div>
                 {showAvatar && (
@@ -49,7 +51,6 @@ const TipItem = ({ tip, showControl, showAvatar }) => {
             <SyntaxHighlighter language="javascript" style={vscDarkPlus}>
                 {tip.content}
             </SyntaxHighlighter>
-
             {tip.tags && (
                 <div className="tags-list">
                     {tip.tags.map((tag) => (
@@ -59,19 +60,19 @@ const TipItem = ({ tip, showControl, showAvatar }) => {
                     ))}
                 </div>
             )}
-
-            {user?.uid && user.uid === tip.userID && showControl && (
-                <div className="tip-controls mt-5">
-                    <button className="btn btn-error btn-sm btn-circle mr-3" onClick={() => deleteTodo(tip.id)}>
-                        <FaTrash />
-                    </button>
-                    <Link to={`/edit-tip/${tip.id}`}>
-                        <button className="btn btn-info btn-sm btn-circle">
-                            <FaPencilAlt />
+            {(user?.uid && user.uid === tip.userID && showControl) ||
+                (isAdmin && (
+                    <div className="tip-controls mt-5">
+                        <button className="btn btn-error btn-sm btn-circle mr-3" onClick={() => deleteTodo(tip.id)}>
+                            <FaTrash />
                         </button>
-                    </Link>
-                </div>
-            )}
+                        <Link to={`/edit-tip/${tip.id}`}>
+                            <button className="btn btn-info btn-sm btn-circle">
+                                <FaPencilAlt />
+                            </button>
+                        </Link>
+                    </div>
+                ))}
         </div>
     );
 };

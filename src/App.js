@@ -4,6 +4,7 @@ import Account from './components/Account';
 import { Route, Routes } from 'react-router-dom';
 import { AuthContextProvider } from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
+import ProtectedAdminRoute from './components/ProtectedAdminRoute';
 import Header from './components/Header';
 import Login from './components/Login';
 import TipsList from './components/TipsList';
@@ -11,6 +12,8 @@ import CreateTip from './components/CreateTip';
 import { TipsContextProvider } from './context/TipsContext';
 import TipEdit from './components/TipEdit';
 import MyTips from './components/MyTips';
+import TipPending from './components/TipPending';
+import Stats from './components/Stats';
 
 function App() {
     return (
@@ -30,14 +33,44 @@ function App() {
                                 </ProtectedRoute>
                             }
                         />
-                        <Route path="/edit-tip/:id" element={<TipEdit />} />
-                        <Route path="/my-tips" element={<MyTips />} />
+                        <Route
+                            path="/edit-tip/:id"
+                            element={
+                                <ProtectedRoute>
+                                    <TipEdit />
+                                </ProtectedRoute>
+                            }
+                        />
+                        <Route
+                            path="/my-tips"
+                            element={
+                                <ProtectedRoute>
+                                    <MyTips />
+                                </ProtectedRoute>
+                            }
+                        />
                         <Route
                             path="/account"
                             element={
                                 <ProtectedRoute>
                                     <Account />
                                 </ProtectedRoute>
+                            }
+                        />
+                        <Route
+                            path="/contributions"
+                            element={
+                                <ProtectedRoute>
+                                    <Stats />
+                                </ProtectedRoute>
+                            }
+                        />
+                        <Route
+                            path="/a-valider"
+                            element={
+                                <ProtectedAdminRoute>
+                                    <TipPending />
+                                </ProtectedAdminRoute>
                             }
                         />
                     </Routes>

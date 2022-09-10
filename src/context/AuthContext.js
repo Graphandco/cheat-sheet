@@ -25,6 +25,22 @@ export const AuthContextProvider = ({ children }) => {
         return signOut(auth);
     };
 
+    const adminID = {
+        // eslint-disable-next-line no-undef
+        admin: process.env.REACT_APP_FIREBASE_ADMIN_ID,
+    };
+
+    const isUserAdmin = () => {
+        if (
+            // eslint-disable-next-line no-undef
+            process.env.REACT_APP_FIREBASE_ADMIN_ID === user?.uid
+        ) {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             // console.log(currentUser);
@@ -35,7 +51,7 @@ export const AuthContextProvider = ({ children }) => {
         };
     }, []);
 
-    return <UserContext.Provider value={{ createUser, user, logout, signIn, signInGoogle }}>{children}</UserContext.Provider>;
+    return <UserContext.Provider value={{ createUser, user, logout, signIn, signInGoogle, adminID, isUserAdmin }}>{children}</UserContext.Provider>;
 };
 
 export const UserAuth = () => {

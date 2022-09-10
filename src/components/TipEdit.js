@@ -4,6 +4,8 @@ import { CheatTips } from '../context/TipsContext';
 import { db } from '../firebase';
 import { updateDoc, doc } from 'firebase/firestore';
 import { useNavigate, Link } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const TipEdit = () => {
     const { id } = useParams();
@@ -21,14 +23,40 @@ const TipEdit = () => {
             content: contentRef.current.value,
             language: catRef.current.value,
         });
-        navigate('/my-tips');
+        notify();
+        setTimeout(() => {
+            navigate('/my-tips');
+        }, '3000');
     };
+
+    const notify = () =>
+        toast.success('Tip mis à jour', {
+            position: 'bottom-right',
+            autoClose: 2000,
+            hideProgressBar: true,
+            closeOnClick: false,
+            pauseOnHover: false,
+            draggable: false,
+            progress: undefined,
+            theme: 'dark',
+        });
 
     // console.log(nameRef.current);
 
     return (
         <>
-            <h1 className="text-5xl font-bold text-center pt-10 pb-5">Éditer le tip</h1>
+            <ToastContainer
+                position="bottom-right"
+                autoClose={2000}
+                hideProgressBar
+                newestOnTop={false}
+                closeOnClick={false}
+                rtl={false}
+                pauseOnFocusLoss={false}
+                draggable={false}
+                pauseOnHover={false}
+            />
+            <h1 className="text-5xl font-bold text-center py-10">Éditer le tip</h1>
             {tips
                 .filter((tip) => {
                     return id !== tip.id ? '' : id.includes(tip.id);
@@ -79,7 +107,7 @@ const TipEdit = () => {
                                 </select>
                             </div>
 
-                            <div onClick={() => updatetip(id)} className="form-control mt-6">
+                            <div onClick={() => updatetip(id)} className="form-control mt-6 grid grid-cols-2 gap-2">
                                 <button className="btn btn-primary">Mettre à jour</button>
                                 <Link to={`/my-tips`}>
                                     <button className="btn btn-primary btn-outline">Annuler</button>

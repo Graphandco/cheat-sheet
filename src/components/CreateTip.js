@@ -4,6 +4,8 @@ import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { useNavigate, Link } from 'react-router-dom';
 import { UserAuth } from '../context/AuthContext';
 import { GrFormClose } from 'react-icons/gr';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const CreateTip = () => {
     const [tipName, setTipName] = useState('');
@@ -18,7 +20,7 @@ const CreateTip = () => {
     const addTip = async (e) => {
         e.preventDefault(e);
         if (tipName === '') {
-            alert('Please enter a valid todo');
+            alert('Merci de saisir un nom');
             return;
         }
         await addDoc(collection(db, 'tips'), {
@@ -28,12 +30,17 @@ const CreateTip = () => {
             tags: tipTags,
             userID: user.uid,
             userEmail: user.email,
+            userName: user.displayName,
             photoURL: user.photoURL,
+            verified: false,
             created: serverTimestamp(),
             // timestamp: firebase.firestore.FieldValue.serverTimestamp(),
         });
         setTipName('');
-        navigate('/');
+        notify();
+        setTimeout(() => {
+            navigate('/');
+        }, '3000');
     };
 
     const addTag = () => {
@@ -45,10 +52,32 @@ const CreateTip = () => {
         const newArr = tipTags.filter((tagName) => tagName !== tagToRemove);
         setTipsTags(newArr);
     };
+    const notify = () =>
+        toast.success('Tip ajouté! En attente de validation', {
+            position: 'bottom-right',
+            autoClose: 2000,
+            hideProgressBar: true,
+            closeOnClick: false,
+            pauseOnHover: false,
+            draggable: false,
+            progress: undefined,
+            theme: 'dark',
+        });
 
     return (
         <>
-            <h1 className="text-5xl font-bold text-center pt-10 pb-5">Ajouter un tip</h1>
+            <ToastContainer
+                position="bottom-right"
+                autoClose={2000}
+                hideProgressBar
+                newestOnTop={false}
+                closeOnClick={false}
+                rtl={false}
+                pauseOnFocusLoss={false}
+                draggable={false}
+                pauseOnHover={false}
+            />
+            <h1 className="text-5xl font-bold text-center py-10">Ajouter un tip</h1>
             <div className="card w-full max-w-lg shadow-2xl bg-base-100 mx-auto ">
                 <div className="card-body">
                     <div className="form-control">
