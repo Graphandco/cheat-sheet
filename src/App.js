@@ -7,13 +7,13 @@ import ProtectedRoute from './components/ProtectedRoute';
 import ProtectedAdminRoute from './components/ProtectedAdminRoute';
 import Header from './components/Header';
 import Login from './components/Login';
-import TipsList from './components/TipsList';
 import CreateTip from './components/CreateTip';
 import { TipsContextProvider } from './context/TipsContext';
 import TipEdit from './components/TipEdit';
 import MyTips from './components/MyTips';
 import TipPending from './components/TipPending';
 import Stats from './components/Stats';
+import Home from './components/Home';
 
 function App() {
     return (
@@ -22,7 +22,7 @@ function App() {
                 <TipsContextProvider>
                     <Header />
                     <Routes>
-                        <Route path="/" element={<TipsList />} />
+                        <Route path="/" element={<Home />} />
                         <Route path="/login" element={<Login />} />
                         <Route path="/signup" element={<Signup />} />
                         <Route

@@ -1,6 +1,14 @@
 /* eslint-disable react/prop-types */
 import { createContext, useContext, useEffect, useState } from 'react';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import {
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    signOut,
+    onAuthStateChanged,
+    GoogleAuthProvider,
+    signInWithPopup,
+    signInWithRedirect,
+} from 'firebase/auth';
 import { auth } from '../firebase';
 
 const UserContext = createContext();
@@ -16,9 +24,14 @@ export const AuthContextProvider = ({ children }) => {
         return signInWithEmailAndPassword(auth, email, password);
     };
 
-    const signInGoogle = () => {
+    const googleSignInPopup = () => {
         const provider = new GoogleAuthProvider();
         return signInWithPopup(auth, provider);
+    };
+
+    const googleSignIn = () => {
+        const provider = new GoogleAuthProvider();
+        signInWithRedirect(auth, provider);
     };
 
     const logout = () => {
@@ -51,7 +64,11 @@ export const AuthContextProvider = ({ children }) => {
         };
     }, []);
 
-    return <UserContext.Provider value={{ createUser, user, logout, signIn, signInGoogle, adminID, isUserAdmin }}>{children}</UserContext.Provider>;
+    return (
+        <UserContext.Provider value={{ createUser, user, logout, signIn, googleSignInPopup, googleSignIn, adminID, isUserAdmin }}>
+            {children}
+        </UserContext.Provider>
+    );
 };
 
 export const UserAuth = () => {

@@ -9,7 +9,7 @@ import { UserAuth } from '../context/AuthContext';
 import { Link } from 'react-router-dom';
 
 const TipItem = ({ tip, showControl, showAvatar }) => {
-    const { user, isUserAdmin } = UserAuth();
+    const { isUserAdmin } = UserAuth();
 
     const isAdmin = isUserAdmin();
 
@@ -18,6 +18,8 @@ const TipItem = ({ tip, showControl, showAvatar }) => {
             await deleteDoc(doc(db, 'tips', id));
         }
     };
+
+    // console.log(showControl);
 
     return (
         // <div className="collapse collapse-arrow border border-primary rounded-box mb-2">
@@ -60,19 +62,18 @@ const TipItem = ({ tip, showControl, showAvatar }) => {
                     ))}
                 </div>
             )}
-            {(user?.uid && user.uid === tip.userID && showControl) ||
-                (isAdmin && (
-                    <div className="tip-controls mt-5">
-                        <button className="btn btn-error btn-sm btn-circle mr-3" onClick={() => deleteTodo(tip.id)}>
-                            <FaTrash />
+            {(showControl || isAdmin) && (
+                <div className="tip-controls mt-5">
+                    <button className="btn btn-error btn-sm btn-circle mr-3" onClick={() => deleteTodo(tip.id)}>
+                        <FaTrash />
+                    </button>
+                    <Link to={`/edit-tip/${tip.id}`}>
+                        <button className="btn btn-info btn-sm btn-circle">
+                            <FaPencilAlt />
                         </button>
-                        <Link to={`/edit-tip/${tip.id}`}>
-                            <button className="btn btn-info btn-sm btn-circle">
-                                <FaPencilAlt />
-                            </button>
-                        </Link>
-                    </div>
-                ))}
+                    </Link>
+                </div>
+            )}
         </div>
     );
 };

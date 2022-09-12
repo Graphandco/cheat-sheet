@@ -2,6 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-.react-gravatar {
-    width: 40px !important;
+.filter-list li.active {
+    background-color: rgb(255 255 255 / 0.05);
 }

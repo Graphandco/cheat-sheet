@@ -8,7 +8,7 @@ const Login = () => {
     const [error, setError] = useState('');
     // const navigate = useNavigate();
     // const { signIn, signInGoogle } = UserAuth();
-    const { signInGoogle } = UserAuth();
+    const { googleSignIn } = UserAuth();
 
     // const handleSubmit = async (e) => {
     //     e.preventDefault();
@@ -25,7 +25,7 @@ const Login = () => {
     const handleGoogleSignIn = async (e) => {
         e.preventDefault();
         try {
-            await signInGoogle();
+            await googleSignIn();
         } catch (error) {
             setError(e.message);
             console.log(error);
@@ -66,7 +66,7 @@ const Login = () => {
                             </div>
                             <div className="form-control mt-6">
                                 <button onClick={handleGoogleSignIn} className="btn btn-primary">
-                                    Se connecter
+                                    Se connecter avec Google
                                 </button>
                             </div>
                             {error && console.log(error)}

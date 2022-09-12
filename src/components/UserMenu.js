@@ -1,15 +1,14 @@
 import { UserAuth } from '../context/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
 const UserMenu = () => {
-    const { user, logout, signInGoogle, isUserAdmin } = UserAuth();
+    const { user, logout, isUserAdmin, googleSignIn } = UserAuth();
     const isAdmin = isUserAdmin();
-
     const navigate = useNavigate();
 
     const handleGoogleSignIn = async (e) => {
         e.preventDefault();
         try {
-            await signInGoogle();
+            await googleSignIn();
         } catch (error) {
             console.log(error);
         }
@@ -61,6 +60,9 @@ const UserMenu = () => {
                     <li>
                         <span onClick={handleGoogleSignIn}>Se connecter</span>
                     </li>
+                    // <li>
+                    //     <Link to="/login">Se connecter</Link>
+                    // </li>
                 )}
                 {/* <li>
                     <span className="justify-between">
