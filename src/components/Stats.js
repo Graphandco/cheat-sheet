@@ -11,14 +11,14 @@ const Stats = () => {
     console.log(uniqueUsers);
 
     return (
-        <div>
+        <>
             <h1 className="text-5xl font-bold text-center py-10">Contributions</h1>
             <div className="users-list">
                 {uniqueUsers.map((user) => (
                     <StatItem key={user} tips={tips} user={user} />
                 ))}
             </div>
-        </div>
+        </>
     );
 };
 

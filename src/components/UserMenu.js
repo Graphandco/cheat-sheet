@@ -1,7 +1,7 @@
 import { UserAuth } from '../context/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
 const UserMenu = () => {
-    const { user, logout, isUserAdmin, googleSignIn } = UserAuth();
+    const { user, logout, isUserAdmin, googleSignIn, zzzz } = UserAuth();
     const isAdmin = isUserAdmin();
     const navigate = useNavigate();
 
@@ -24,6 +24,8 @@ const UserMenu = () => {
         }
     };
 
+    console.log(zzzz);
+
     return (
         <div className="dropdown dropdown-end">
             <label tabIndex="0" className="btn btn-ghost btn-circle avatar">
@@ -35,7 +37,7 @@ const UserMenu = () => {
                 {user && (
                     <>
                         <li>
-                            <span className="text-primary pointer-events-none">{user.email}</span>
+                            <span className="text-primary pointer-events-none">{user?.displayName}</span>
                         </li>
                         <li>
                             <Link to="account">Voir mon compte</Link>
@@ -47,12 +49,19 @@ const UserMenu = () => {
                             <Link to="contributions">Contributions</Link>
                         </li>
                         {isAdmin && (
-                            <li>
-                                <Link to="a-valider">Tips à valider</Link>
-                            </li>
+                            <>
+                                <li>
+                                    <Link to="a-valider">Tips à valider</Link>
+                                </li>
+                                <li>
+                                    <Link to="all-tips">Tous les tips</Link>
+                                </li>
+                            </>
                         )}
                         <li>
-                            <span onClick={handleLogout}>Se déconnecter</span>
+                            <span className="opacity-50" onClick={handleLogout}>
+                                Se déconnecter
+                            </span>
                         </li>
                     </>
                 )}

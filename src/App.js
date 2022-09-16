@@ -14,6 +14,7 @@ import MyTips from './components/MyTips';
 import TipPending from './components/TipPending';
 import Stats from './components/Stats';
 import Home from './components/Home';
+import AllTips from './components/AllTips';
 
 function App() {
     return (
@@ -70,6 +71,14 @@ function App() {
                             element={
                                 <ProtectedAdminRoute>
                                     <TipPending />
+                                </ProtectedAdminRoute>
+                            }
+                        />
+                        <Route
+                            path="/all-tips"
+                            element={
+                                <ProtectedAdminRoute>
+                                    <AllTips />
                                 </ProtectedAdminRoute>
                             }
                         />

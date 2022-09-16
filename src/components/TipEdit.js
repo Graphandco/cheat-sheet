@@ -100,8 +100,8 @@ const TipEdit = () => {
                                 <option value="php">PHP</option>
                                 <option value="css">CSS</option>
                                 <option value="javascript">Javascript</option>
-                                <option value="react">React</option>
                                 <option value="prestashop">Prestashop</option>
+                                <option value="meosis">Meosis (no code)</option>
                             </select>
                         </div>
 

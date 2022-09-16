@@ -38,10 +38,8 @@ export const AuthContextProvider = ({ children }) => {
         return signOut(auth);
     };
 
-    const adminID = {
-        // eslint-disable-next-line no-undef
-        admin: process.env.REACT_APP_FIREBASE_ADMIN_ID,
-    };
+    // eslint-disable-next-line no-undef
+    const zzzz = process.env.REACT_APP_FIREBASE_ADMIN_ID === user?.uid;
 
     const isUserAdmin = () => {
         if (
@@ -65,9 +63,7 @@ export const AuthContextProvider = ({ children }) => {
     }, []);
 
     return (
-        <UserContext.Provider value={{ createUser, user, logout, signIn, googleSignInPopup, googleSignIn, adminID, isUserAdmin }}>
-            {children}
-        </UserContext.Provider>
+        <UserContext.Provider value={{ createUser, user, logout, signIn, googleSignInPopup, googleSignIn, zzzz, isUserAdmin }}>{children}</UserContext.Provider>
     );
 };
 

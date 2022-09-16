@@ -38,7 +38,7 @@ const TipItem = ({ tip, showControl, showAvatar }) => {
                     <span className="badge badge-xs badge-primary">{tip.language}</span>
                 </div>
                 {showAvatar && (
-                    <div className="avatar max-h-10 max-w-sm">
+                    <div className="avatar max-h-10 w-12">
                         <div className="rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
                             {tip.photoURL ? (
                                 // <Gravatar email={tip.userEmail} size={40} default="mp" />

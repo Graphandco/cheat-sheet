@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { db } from '../firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { useNavigate, Link } from 'react-router-dom';
@@ -13,9 +13,15 @@ const CreateTip = () => {
     const [tipLanguage, setTipLanguage] = useState('');
     const [tipTags, setTipsTags] = useState([]);
     const [tipTag, setTipTag] = useState('');
+    const [isTipValid, setIsTipValid] = useState(false);
 
-    const { user } = UserAuth();
+    const { user, isUserAdmin } = UserAuth();
+    const isAdmin = isUserAdmin();
     const navigate = useNavigate();
+
+    useEffect(() => {
+        isAdmin && setIsTipValid(true);
+    }, []);
 
     const addTip = async (e) => {
         e.preventDefault(e);
@@ -32,7 +38,7 @@ const CreateTip = () => {
             userEmail: user.email,
             userName: user.displayName,
             photoURL: user.photoURL,
-            verified: false,
+            verified: isTipValid,
             created: serverTimestamp(),
             // timestamp: firebase.firestore.FieldValue.serverTimestamp(),
         });
@@ -104,8 +110,8 @@ const CreateTip = () => {
                             <option value="php">PHP</option>
                             <option value="css">CSS</option>
                             <option value="javascript">Javascript</option>
-                            <option value="react">React</option>
                             <option value="prestashop">Prestashop</option>
+                            <option value="meosis">Meosis (no code)</option>
                         </select>
                     </div>
 
