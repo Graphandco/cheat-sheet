@@ -58,7 +58,11 @@ const TipEdit = () => {
     useEffect(() => {
         const initialTags = filteredTips.map((tip) => tip.tags);
         const initiateTags = () => {
-            setTipTags(initialTags[0]);
+            if (initialTags[0]) {
+                setTipTags(initialTags[0]);
+            } else {
+                setTipTags([]);
+            }
         };
         initiateTags();
     }, []);
@@ -142,7 +146,7 @@ const TipEdit = () => {
                                     +
                                 </button>
                             </div>
-                            {tipTags.length > 0 && (
+                            {tipTags?.length > 0 && (
                                 <div className="mt-4 flex flex-wrap">
                                     {tipTags.map((tag) => (
                                         <div key={tag} className="mr-3 mb-1 flex">
