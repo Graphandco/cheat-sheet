@@ -7,7 +7,7 @@ import { UserAuth } from '../context/AuthContext';
 const Header = () => {
     const { user } = UserAuth();
     return (
-        <header>
+        <header className="sticky top-0 z-10">
             <div className="navbar bg-base-300 py-4 px-5">
                 <div className="flex-1">
                     <Link to="/">

@@ -43,6 +43,11 @@ const CreateTip = () => {
             // timestamp: firebase.firestore.FieldValue.serverTimestamp(),
         });
         setTipName('');
+        Notification.requestPermission().then((perm) => {
+            if (perm === 'granted') {
+                new Notification('Tip ajouté');
+            }
+        });
         notify();
         setTimeout(() => {
             navigate('/');
@@ -50,7 +55,7 @@ const CreateTip = () => {
     };
 
     const addTag = () => {
-        tipTags.push(tipTag);
+        tipTags.push(tipTag.toLowerCase());
         setTipTag('');
     };
 

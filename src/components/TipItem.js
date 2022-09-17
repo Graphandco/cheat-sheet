@@ -32,10 +32,10 @@ const TipItem = ({ tip, showControl, showAvatar }) => {
         //     </div>
         // </div>
         <div className="bg-white/5 rounded-md mb-10 px-10 py-5">
-            <div className="flex align-center justify-between">
-                <div className="tip-infos">
+            <div className="flex align-center justify-between mb-5">
+                <div className="tip-infos flex items-center gap-1">
+                    <img className="mr-2" src={`../svg/${tip.language}.svg`} alt={tip.language} />
                     <h2 className="text-2xl font-bold">{tip.name}</h2>
-                    <span className="badge badge-xs badge-primary">{tip.language}</span>
                 </div>
                 {showAvatar && (
                     <div className="avatar max-h-10 w-12">
@@ -53,27 +53,25 @@ const TipItem = ({ tip, showControl, showAvatar }) => {
             <SyntaxHighlighter language="javascript" style={vscDarkPlus}>
                 {tip.content}
             </SyntaxHighlighter>
-            {tip.tags && (
-                <div className="tags-list">
-                    {tip.tags.map((tag) => (
-                        <div key={tag} className="badge badge-primary mr-2">
-                            {tag}
-                        </div>
-                    ))}
-                </div>
-            )}
-            {(showControl || isAdmin) && (
-                <div className="tip-controls mt-5">
-                    <button className="btn btn-error btn-sm btn-circle mr-3" onClick={() => deleteTodo(tip.id)}>
-                        <FaTrash />
-                    </button>
-                    <Link to={`/edit-tip/${tip.id}`}>
-                        <button className="btn btn-info btn-sm btn-circle">
-                            <FaPencilAlt />
-                        </button>
-                    </Link>
-                </div>
-            )}
+            <div className="flex items-center justify-between mt-5">
+                {tip.tags && (
+                    <div className="tags-list">
+                        {tip.tags.map((tag) => (
+                            <button key={tag} className="btn btn-xs border-none mr-2 pointer-events-none">
+                                {tag}
+                            </button>
+                        ))}
+                    </div>
+                )}
+                {(showControl || isAdmin) && (
+                    <div className="tip-controls flex justify-end gap-3">
+                        <Link to={`/edit-tip/${tip.id}`}>
+                            <FaPencilAlt className="cursor-pointer hover:fill-primary" />
+                        </Link>
+                        <FaTrash className="cursor-pointer hover:fill-primary" onClick={() => deleteTodo(tip.id)} />
+                    </div>
+                )}
+            </div>
         </div>
     );
 };
