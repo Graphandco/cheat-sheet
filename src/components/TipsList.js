@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import TipItem from './TipItem';
 import { CheatTips } from '../context/TipsContext';
+// import { useEffect } from 'react';
 
 // import { query, collection, onSnapshot, updateDoc, doc, addDoc, deleteDoc } from 'firebase/firestore';
 
@@ -11,6 +12,7 @@ const TipsList = () => {
     const [active, setActive] = useState(-1);
     const { tips } = CheatTips();
     const [orderByLang, setOrderByLang] = useState(false);
+    // const [tipsByTags, setTipsByTags] = useState([]);
 
     const handleActive = (lang, index) => {
         setFilterTip(lang);
@@ -18,11 +20,26 @@ const TipsList = () => {
         setOrderByLang(true);
     };
 
-    const filteredTips = tips.filter((tip) => {
+    const verifiedTips = tips.filter((tip) => {
+        return tip.verified === true ? tip : '';
+    });
+
+    const normalizeText = (text) => {
+        return text
+            .toLowerCase()
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '');
+    };
+
+    const filteredTips = verifiedTips.filter((tip) => {
+        const tipTagsJoinded = tip.tags.join('');
+        normalizeText(tipTagsJoinded);
+        normalizeText(searchText);
+        const normalizedTipName = normalizeText(tip.name);
         if (orderByLang === true) {
-            return tip.name.toLowerCase().includes(searchText.toLowerCase()) && tip.verified === true && tip.language === filterTip ? tip : '';
+            return normalizedTipName.includes(searchText) && tip.language === filterTip ? tip : '';
         } else {
-            return tip.name.toLowerCase().includes(searchText.toLowerCase()) && tip.verified === true ? tip : '';
+            return normalizedTipName.includes(searchText) || tipTagsJoinded.includes(searchText) ? tip : '';
         }
     });
 
