@@ -10,14 +10,14 @@ export const TipsContextProvider = ({ children }) => {
     const [tips, setTips] = useState([]);
 
     useEffect(() => {
-        const q = query(collection(db, 'tips'), orderBy('name'));
+        const q = query(collection(db, 'tips'), orderBy('createdAt', 'desc'));
         const unsubscribe = onSnapshot(q, (querySnapshot) => {
             let tipsArr = [];
             querySnapshot.forEach((doc) => {
                 tipsArr.push({ ...doc.data(), id: doc.id });
             });
             setTips(tipsArr);
-            // console.log(tips);
+            console.log(tipsArr);
         });
         return () => unsubscribe();
     }, []);

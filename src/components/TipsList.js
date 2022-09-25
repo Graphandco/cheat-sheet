@@ -65,7 +65,7 @@ const TipsList = () => {
                 />
             </div>
             <div className="tips-infos md:flex justify-between items-center gap-3">
-                <div className="shadow bg-primary text-primary-content ml-5 rounded-md mb-3 md:mb-0">
+                <div className="shadow bg-primary text-primary-content mx-5 rounded-md mb-3 md:mb-0">
                     <div className="stat">
                         <div className="stat-title text-black opacity-100">Nombre de tip{filteredTips.length > 1 ? 's' : ''}</div>
                         <div className="stat-value">{filteredTips.length}</div>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { db } from '../firebase';
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { collection, addDoc } from 'firebase/firestore';
 import { useNavigate, Link } from 'react-router-dom';
 import { UserAuth } from '../context/AuthContext';
 import { GrFormClose } from 'react-icons/gr';
@@ -39,7 +39,8 @@ const CreateTip = () => {
             userName: user.displayName,
             photoURL: user.photoURL,
             verified: isTipValid,
-            created: serverTimestamp(),
+            // created: serverTimestamp(),
+            createdAt: new Date(),
             // timestamp: firebase.firestore.FieldValue.serverTimestamp(),
         });
         setTipName('');
