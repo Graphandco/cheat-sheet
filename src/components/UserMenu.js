@@ -1,5 +1,6 @@
 import { UserAuth } from '../context/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
+import { FaUserAlt } from 'react-icons/fa';
 const UserMenu = () => {
     const { user, logout, isUserAdmin, googleSignIn, zzzz } = UserAuth();
     const isAdmin = isUserAdmin();
@@ -30,7 +31,13 @@ const UserMenu = () => {
         <div className="dropdown dropdown-end">
             <label tabIndex="0" className="btn btn-ghost btn-circle avatar">
                 <div className="w-10 rounded-full">
-                    {user?.photoURL ? <img src={user.photoURL} alt="" /> : <img src="https://fr.seaicons.com/wp-content/uploads/2015/10/dev-icon1.png" />}
+                    {user?.photoURL ? (
+                        <img src={user.photoURL} alt="" />
+                    ) : (
+                        <div className="w-full h-full grid place-items-center border-primary border-solid border-2 text-lg">
+                            <FaUserAlt />
+                        </div>
+                    )}
                 </div>
             </label>
             <ul tabIndex="0" className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">

@@ -15,6 +15,7 @@ import TipPending from './components/TipPending';
 import Stats from './components/Stats';
 import Home from './components/Home';
 import AllTips from './components/AllTips';
+import TipSingle from './components/TipSingle';
 
 function App() {
     return (
@@ -42,6 +43,7 @@ function App() {
                                 </ProtectedRoute>
                             }
                         />
+                        <Route path="/tip/:id" element={<TipSingle />} />
                         <Route
                             path="/my-tips"
                             element={
