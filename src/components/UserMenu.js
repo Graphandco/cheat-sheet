@@ -2,7 +2,8 @@ import { UserAuth } from '../context/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
 import { FaUserAlt } from 'react-icons/fa';
 const UserMenu = () => {
-    const { user, logout, isUserAdmin, googleSignIn, zzzz } = UserAuth();
+    // const { user, logout, isUserAdmin, googleSignIn, zzzz } = UserAuth();
+    const { user, logout, isUserAdmin, googleSignIn } = UserAuth();
     const isAdmin = isUserAdmin();
     const navigate = useNavigate();
 
@@ -25,7 +26,7 @@ const UserMenu = () => {
         }
     };
 
-    console.log(zzzz);
+    // console.log(zzzz);
 
     return (
         <div className="dropdown dropdown-end">

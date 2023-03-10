@@ -17,7 +17,7 @@ export const TipsContextProvider = ({ children }) => {
                 tipsArr.push({ ...doc.data(), id: doc.id });
             });
             setTips(tipsArr);
-            console.log(tipsArr);
+            // console.log(tipsArr);
         });
         return () => unsubscribe();
     }, []);
