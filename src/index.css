@@ -5,3 +5,11 @@
 .filter-list li.active {
     background-color: rgb(255 255 255 / 0.05);
 }
+/* .tips-list pre {
+    white-space: initial !important;
+    word-break: normal !important;
+} */
+.tips-list code {
+    white-space: break-spaces !important;
+    word-break: break-word !important;
+}

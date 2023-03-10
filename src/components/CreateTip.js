@@ -110,9 +110,7 @@ const CreateTip = () => {
                             <span className="label-text">Catégorie du tip</span>
                         </label>
                         <select onChange={(e) => setTipLanguage(e.target.value)} className="select select-bordered w-full max-w-xs">
-                            <option disabled defaultValue>
-                                Sélectionnez...
-                            </option>
+                            <option defaultValue>Sélectionnez...</option>
                             <option value="php">PHP</option>
                             <option value="css">CSS</option>
                             <option value="javascript">Javascript</option>

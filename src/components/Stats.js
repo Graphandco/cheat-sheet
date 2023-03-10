@@ -8,6 +8,7 @@ const Stats = () => {
 
     let users = tips.map((tip) => tip.userName);
     let uniqueUsers = [...new Set(users.filter((item) => item !== undefined && item !== null))];
+
     console.log(uniqueUsers);
 
     return (

@@ -3,6 +3,7 @@ import { CheatTips } from '../context/TipsContext';
 
 const AllTips = () => {
     const { tips } = CheatTips();
+
     return (
         <>
             <h1 className="text-5xl font-bold text-center py-10">Tous les tips</h1>
